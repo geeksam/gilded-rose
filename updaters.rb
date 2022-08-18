@@ -5,10 +5,6 @@ class LegendaryItem < Updater
 end
 
 class AgedBrie < Updater
-  def change_quality
-    item.quality += quality_adjustment
-  end
-
   def quality_adjustment
     if item.sell_in < 0
       2
@@ -19,10 +15,6 @@ class AgedBrie < Updater
 end
 
 class BackstagePass < Updater
-  def change_quality
-    item.quality += quality_adjustment
-  end
-
   def quality_adjustment
     case item.sell_in
     when 0..4 ; 3
@@ -34,10 +26,6 @@ class BackstagePass < Updater
 end
 
 class NormalItem < Updater
-  def change_quality
-    item.quality += quality_adjustment
-  end
-
   def quality_adjustment
     if item.sell_in < 0
       -2

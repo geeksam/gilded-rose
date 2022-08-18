@@ -31,6 +31,10 @@ class Updater
 
   private
 
+  def change_quality
+    item.quality += quality_adjustment
+  end
+
   def trim_quality
     item.quality = 50 if item.quality > 50
     item.quality =  0 if item.quality <  0
