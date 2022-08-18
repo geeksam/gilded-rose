@@ -24,3 +24,9 @@ class NormalItem < Updater
   def quality_adjustment_before_sell_by ; -1 ; end
   def quality_adjustment_after_sell_by  ; -2 ; end
 end
+
+class ConjuredItem < Updater
+  def quality_adjustment_before_sell_by ; -2 ; end
+  def quality_adjustment_after_sell_by  ; -4 ; end
+end
+

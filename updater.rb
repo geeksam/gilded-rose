@@ -13,6 +13,7 @@ class Updater
       when /Sulfuras/  ; LegendaryItem
       when /Aged Brie/ ; AgedBrie
       when /Backstage/ ; BackstagePass
+      when /Conjured/  ; ConjuredItem
       else             ; NormalItem
       end
     klass.new(item)
