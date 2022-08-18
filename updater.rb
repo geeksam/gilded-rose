@@ -10,8 +10,9 @@ class Updater
   def self.instance_for(item)
     klass =
       case item.name
-      when /Sulfuras/ ; LegendaryItem
-      else            ; self
+      when /Sulfuras/  ; LegendaryItem
+      when /Aged Brie/ ; AgedBrie
+      else             ; self
       end
     klass.new(item)
   end
