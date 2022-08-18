@@ -26,4 +26,11 @@ class Updater
   def call
     raise "Subclass responsibility"
   end
+
+  private
+
+  def trim_quality
+    item.quality = 50 if item.quality > 50
+    item.quality =  0 if item.quality <  0
+  end
 end
