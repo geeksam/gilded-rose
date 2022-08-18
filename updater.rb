@@ -12,6 +12,7 @@ class Updater
       case item.name
       when /Sulfuras/  ; LegendaryItem
       when /Aged Brie/ ; AgedBrie
+      when /Backstage/ ; BackstagePass
       else             ; self
       end
     klass.new(item)
