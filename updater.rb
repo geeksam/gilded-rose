@@ -26,15 +26,11 @@ class Updater
 
   def call
     item.sell_in -= 1
-    change_quality
+    item.quality += quality_adjustment
     trim_quality
   end
 
   private
-
-  def change_quality
-    item.quality += quality_adjustment
-  end
 
   def quality_adjustment
     if item.sell_in < 0
