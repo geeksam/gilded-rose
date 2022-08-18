@@ -24,7 +24,9 @@ class Updater
   end
 
   def call
-    raise "Subclass responsibility"
+    item.sell_in -= 1
+    change_quality
+    trim_quality
   end
 
   private
