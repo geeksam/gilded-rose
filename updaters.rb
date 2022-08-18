@@ -4,11 +4,6 @@ class LegendaryItem < Updater
   end
 end
 
-class AgedBrie < Updater
-  def quality_adjustment_before_sell_by ; 1 ; end
-  def quality_adjustment_after_sell_by  ; 2 ; end
-end
-
 class BackstagePass < Updater
   def quality_adjustment
     case item.sell_in
@@ -18,6 +13,11 @@ class BackstagePass < Updater
     else      ; -1 * item.quality
     end
   end
+end
+
+class AgedBrie < Updater
+  def quality_adjustment_before_sell_by ; 1 ; end
+  def quality_adjustment_after_sell_by  ; 2 ; end
 end
 
 class NormalItem < Updater
