@@ -31,9 +31,12 @@ end
 class NormalItem < Updater
   def quality_adjustment
     if item.sell_in < 0
-      -2
+      quality_adjustment_after_sell_by
     else
-      -1
+      quality_adjustment_before_sell_by
     end
   end
+
+  def quality_adjustment_before_sell_by ; -1 ; end
+  def quality_adjustment_after_sell_by  ; -2 ; end
 end
