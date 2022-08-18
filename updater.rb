@@ -1,3 +1,6 @@
+class Updater ; end
+require_relative "updaters"
+
 class Updater
   def self.call(item)
     instance = instance_for(item)
@@ -5,7 +8,11 @@ class Updater
   end
 
   def self.instance_for(item)
-    klass = self
+    klass =
+      case item.name
+      when /Sulfuras/ ; LegendaryItem
+      else            ; self
+      end
     klass.new(item)
   end
 
