@@ -20,10 +20,16 @@ end
 
 class BackstagePass < Updater
   def change_quality
-    item.quality += 1
-    item.quality += 1 if item.sell_in < 10
-    item.quality += 1 if item.sell_in < 5
-    item.quality = 0 if item.sell_in < 0
+    item.quality += quality_adjustment
+  end
+
+  def quality_adjustment
+    case item.sell_in
+    when 0..4 ; 3
+    when 5..9 ; 2
+    when 10.. ; 1
+    else      ; -1 * item.quality
+    end
   end
 end
 
