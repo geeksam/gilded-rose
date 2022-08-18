@@ -231,7 +231,7 @@ RSpec.describe "update_quality" do
     end
   end
 
-  xcontext "A conjured item" do
+  context "A conjured item" do
     let(:name) { "Conjured Mana Cake" }
 
     context "before the sell date" do
