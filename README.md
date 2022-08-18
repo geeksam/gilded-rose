@@ -42,6 +42,15 @@ Assuming that's in place...
      executable.  I particularly like `--fail-fast`.)
 5) Open `./gilded_rose.rb` and go to town!
 
+Note:  there are tests to describe the behavior of conjured items, but they are
+marked as "pending".  When you're ready to tackle that requirement, go into
+`./spec/gilded_rose_spec.rb` and search for the word `xcontext`.  Delete the
+`x` and save the file.  It's probably also a good idea to put that in a
+separate commit.
+
+NOTE: if you're using the `tcr` script (more on this shortly), it WILL
+revert this change on failure -- and the tests will almost certainly fail!
+
 
 
 ## Original Description of the Gilded Rose
