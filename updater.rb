@@ -1,5 +1,20 @@
 class Updater
   def self.call(item)
+    instance = instance_for(item)
+    instance.call
+  end
+
+  def self.instance_for(item)
+    klass = self
+    klass.new(item)
+  end
+
+  attr_reader :item
+  def initialize(item)
+    @item = item
+  end
+
+  def call
     if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
       if item.quality > 0
         if item.name != 'Sulfuras, Hand of Ragnaros'
