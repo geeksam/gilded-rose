@@ -1,0 +1,124 @@
+#!/usr/bin/env ruby
+
+require 'open3'
+
+
+EXAMPLE_USAGE = <<~EOF.strip
+
+  #{__FILE__} ==> test && commit || revert
+
+    NOTE: THIS WILL DELETE ANY UNCOMMITTED WORK.
+          (That's kind of the point.)
+
+          This includes changes to committed files,
+          AS WELL AS new files that have not been added to git.
+
+          If you have any changes you want to keep regardless of whether the
+          tests pass, please add AND COMMIT them outside of the TCR cycle.
+
+  USAGE:
+    #{__FILE__} commit-message [-- rspec-flags]
+
+      Unless your commit message is a single word, you should wrap it in quotes.
+
+      Anything after the `--` will be passed to the `rspec` CLI.
+      See `rspec --help` for details.
+
+  Examples:
+    $ #{__FILE__} "Extract Method"
+    $ #{__FILE__} "Introduce Explaining Variable"
+EOF
+
+def show_help_and_exit
+  puts
+  puts EXAMPLE_USAGE
+  puts
+  exit
+end
+
+
+def banner(action, *extra_lines)
+  msg    = "## TCR: #{action.strip} ##"
+  border = "#" * msg.length
+
+  indent = " " * 4
+  puts "\n\n"
+  puts indent + border
+  puts indent + msg
+  puts indent + border
+  Array(extra_lines).flatten.each do |e|
+    puts indent + "> #{e}"
+  end
+  puts "\n\n"
+end
+
+
+def stream_output(io_in:, io_out:)
+  Thread.new do
+    until (char = io_in.getc).nil?
+      io_out.print char
+      io_out.flush
+    end
+  end
+end
+
+def run_command(cmd)
+  exit_status = nil # scope hack
+  Open3.popen3(cmd) { |stdin, stdout, stderr, wait_thread|
+    threads = [wait_thread]
+    threads << stream_output( io_in: stdout, io_out: $stdout )
+    threads << stream_output( io_in: stderr, io_out: $stderr )
+
+    threads.each(&:join)
+
+    exit_status = wait_thread.value
+  }
+  return exit_status.success?
+end
+
+def consume_rspec_flags
+  flags = []
+  while ARGV.include?("--")
+    flag = ARGV.pop
+    break if flag == "--"
+    flags.unshift flag
+  end
+  flags
+end
+
+
+
+
+def test(rspec_flags)
+  cmd = (%w[ bundle exec rspec --force-color ] + Array(rspec_flags)).join(" ")
+  banner "TEST", cmd
+  run_command cmd
+end
+
+def commit
+  cmd = "git commit -am '#{ARGV.first.strip}'"
+  banner "COMMIT", cmd
+  run_command cmd
+end
+
+def revert
+  cmds = [ "git reset --hard", "git clean -f" ]
+  banner "REVERT", *cmds
+  cmds.each do |cmd|
+    break if run_command(cmd) == false
+  end
+end
+
+
+
+# Check for RSpec args first
+rspec_flags = consume_rspec_flags
+
+# There must be exactly one arg left
+show_help_and_exit if ARGV.length != 1
+
+# and it shouldn't be a cry for help
+show_help_and_exit if ARGV.first.strip =~ /^(-h|--help)$/
+
+# http://butt.holdings
+test(rspec_flags) ? commit : revert
