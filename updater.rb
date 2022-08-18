@@ -35,6 +35,14 @@ class Updater
     item.quality += quality_adjustment
   end
 
+  def quality_adjustment
+    if item.sell_in < 0
+      quality_adjustment_after_sell_by
+    else
+      quality_adjustment_before_sell_by
+    end
+  end
+
   def trim_quality
     item.quality = 50 if item.quality > 50
     item.quality =  0 if item.quality <  0
