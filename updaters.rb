@@ -7,34 +7,40 @@ end
 class AgedBrie < Updater
   def call
     item.sell_in -= 1
+    change_quality
+    trim_quality
+  end
 
+  def change_quality
     item.quality += 1
     item.quality += 1 if item.sell_in < 0
-
-    trim_quality
   end
 end
 
 class BackstagePass < Updater
   def call
     item.sell_in -= 1
+    change_quality
+    trim_quality
+  end
 
+  def change_quality
     item.quality += 1
     item.quality += 1 if item.sell_in < 10
     item.quality += 1 if item.sell_in < 5
     item.quality = 0 if item.sell_in < 0
-
-    trim_quality
   end
 end
 
 class NormalItem < Updater
   def call
     item.sell_in -= 1
+    change_quality
+    trim_quality
+  end
 
+  def change_quality
     item.quality -= 1
     item.quality -= 1 if item.sell_in < 0
-
-    trim_quality
   end
 end
