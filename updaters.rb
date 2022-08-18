@@ -18,14 +18,12 @@ end
 class BackstagePass < Updater
   def call
     item.quality += 1
-      if item.name == 'Backstage passes to a TAFKAL80ETC concert'
-        if item.sell_in < 11
-          item.quality += 1
-        end
-        if item.sell_in < 6
-          item.quality += 1
-        end
-      end
+    if item.sell_in < 11
+      item.quality += 1
+    end
+    if item.sell_in < 6
+      item.quality += 1
+    end
     item.sell_in -= 1
     if item.sell_in < 0
       item.quality = item.quality - item.quality
