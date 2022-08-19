@@ -96,7 +96,7 @@ def test(rspec_flags)
 end
 
 def commit
-  cmd = "git commit -am '#{ARGV.first.strip}'"
+  cmd = "git commit -am '[TCR] #{ARGV.first.strip}'"
   banner "COMMIT", cmd
   run_command cmd
 end
