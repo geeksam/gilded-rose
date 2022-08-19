@@ -53,6 +53,30 @@ revert this change on failure -- and the tests will almost certainly fail!
 
 
 
+### TCR: ( test && commit || revert )
+
+If you're already familiar with TCR:  go run `./tcr` by itself (or with the
+`-h` or `--help` flags).  It'll tell you how to use it.
+
+Wondering what the heck this is?  Here are some links:
+* [Kent Beck's blog post about it](https://medium.com/@kentbeck_7670/test-commit-revert-870bbd756864)
+* A somewhat meandering [talk by Shane Becker from RailsConf 2019](https://www.youtube.com/watch?v=Z_LoGqMugN0)
+
+The `./tcr` script will warn you about this, but it bears repeating here:
+**it is designed to throw away everything if your tests don't pass.**
+
+You will almost certainly lose work while using it, especially as you're first
+getting used to it.  I suggest that you lean into it, and get used to working
+in very small increments.
+
+Smaller.
+
+No, even smaller than that.
+
+Seriously, though, try it.  You'll learn something.
+
+
+
 ## Original Description of the Gilded Rose
 
 > Hi and welcome to team Gilded Rose. As you know, we are a small inn with a
