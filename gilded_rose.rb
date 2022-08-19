@@ -30,7 +30,7 @@ class Updater
   def call
     item.sell_in -= 1
     item.quality += quality_adjustment
-    trim_quality
+    enforce_quality_constraints
   end
 
   private
@@ -43,7 +43,7 @@ class Updater
     end
   end
 
-  def trim_quality
+  def enforce_quality_constraints
     item.quality = 50 if item.quality > 50
     item.quality =  0 if item.quality <  0
   end
