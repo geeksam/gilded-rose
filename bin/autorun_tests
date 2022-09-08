@@ -66,25 +66,31 @@ def ignore_change?(filename)
   IGNORE_FILES.include?(fname)
 end
 
+def run_tests
+  run_command "bundle exec rspec --force-color"
+end
 
+
+
+puts "Running tests..."
+run_tests
+
+puts "\n\nNow listening for changes to the filesystem..."
 
 
 listener = Listen.to('.') do |modified, added, removed|
   if modified.include?(File.expand_path(__FILE__))
     puts
-    puts "#{__FILE__} changed!  exec'ing..."
-    puts "..."
+    puts "#{__FILE__} changed!"
     puts "GOODBYE CRUEL WORLD"
+    puts
     exec "ruby #{__FILE__}"
   end
 
   changes = [ modified, added, removed ].flatten.reject { |e| ignore_change?(e) }
-
-  if changes.any?
+  if changes.count > 0
     banner
-    elapsed = Benchmark.measure do
-      run_command "bundle exec rspec --force-color"
-    end
+    run_tests
   end
 
 end
