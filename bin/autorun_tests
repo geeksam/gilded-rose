@@ -1,0 +1,98 @@
+#!/usr/bin/env ruby
+
+
+require "benchmark"
+
+require "bundler/setup"
+require "listen"
+
+Benchmark # wtf?
+
+
+require_relative "cmd_utils"
+
+def run_cmd(cmd, note: nil)
+  puts
+  puts "  # #{note}" if note
+  puts "  $ #{cmd}"
+  Open3.popen3(cmd) do |stdin, stdout, stderr, wait_thr|
+    pid = wait_thr.pid # pid of the started process.
+    # I don't *think* I need to do anything here...
+    exit_status = wait_thr.value # Process::Status object returned.
+  end
+end
+
+
+
+def banner
+  time = Time.now.strftime("%Y-%M-%d %I:%M:%S %p")
+  n = time.length
+
+
+  alpha_and_omega = "##"
+  line = ->(x) {
+    s = "  "
+    s << alpha_and_omega
+    case x
+    when "#", " " ; s << (x * (n+2))
+    else          ; s << " " << x << " "
+    end
+    s << alpha_and_omega
+    s
+  }
+
+  puts "\n\n"
+  puts line.("#")     ############################
+  puts line.(" ")     ##                        ##
+  puts line.(time)    ## 2022-21-08 11:21:57 AM ##
+  puts line.(" ")     ##                        ##
+  puts line.("#")     ############################
+  puts
+end
+
+
+BASE_PATH = PROJECT_ROOT.to_s
+def rel_path(filename)
+  filename.gsub(BASE_PATH, "").gsub(/^\//, "")
+end
+
+
+IGNORE_DIRS  = %w[ bin vendor ]
+IGNORE_FILES = %w[ Gemfile Gemfile.lock README.md run_tests.sh spec/examples.txt ]
+
+def ignore_change?(filename)
+  fname = rel_path(filename)
+  return true if IGNORE_DIRS.any? { |dir| fname.start_with?(dir.to_s) }
+  IGNORE_FILES.include?(fname)
+end
+
+
+
+
+listener = Listen.to('.') do |modified, added, removed|
+  if modified.include?(File.expand_path(__FILE__))
+    puts
+    puts "#{__FILE__} changed!  exec'ing..."
+    puts "..."
+    puts "GOODBYE CRUEL WORLD"
+    exec "ruby #{__FILE__}"
+  end
+
+  changes = [ modified, added, removed ].flatten.reject { |e| ignore_change?(e) }
+
+  if changes.any?
+    banner
+    elapsed = Benchmark.measure do
+      run_command "bundle exec rspec --force-color"
+    end
+  end
+
+end
+
+listener.start
+sleep
+
+
+
+
+
