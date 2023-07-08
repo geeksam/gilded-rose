@@ -1,0 +1,36 @@
+General:
+
+- All items have a SellIn value which denotes the number of (remaining)
+  days we have to sell the item
+- All items have a #quality value which denotes how valuable the item is
+- At the end of each day our system lowers both values for every item
+
+
+
+Quality Constraints:
+
+- The Quality of an item is never negative.
+- The Quality of an item is never more than 50 (except "Sulfuras"; see below)
+
+
+
+Current Behavior:
+
+- Once the sell by date has passed, Quality degrades twice as fast
+- "Aged Brie" actually increases in Quality the older it gets
+- "Sulfuras", being a legendary item, never has to be sold or decreases in
+  Quality
+- "Backstage passes", like aged brie, increases in Quality as its SellIn value
+  approaches:
+  - Quality increases by 2 when there are 10 days or less
+  - Quality increases by 3 when there are 5 days or less
+  - Quality drops to 0 after the concert
+
+
+
+      New Behavior:
+
+      We have recently signed a supplier of conjured items.
+      This requires an update to our system:
+
+      - "Conjured" items degrade in Quality twice as fast as normal items
