@@ -1,3 +1,5 @@
+require_relative 'lib'
+
 def update_quality(item)
   if item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert'
     if item.quality > 0
