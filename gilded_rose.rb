@@ -48,11 +48,15 @@ def update_quality(item)
         end
       end
     end
+  end
+  if (item.sell_in < 0)
     if (item.name != "Aged Brie")
       if !(item.name != 'Backstage passes to a TAFKAL80ETC concert')
         item.quality = item.quality - item.quality
       end
     end
+  end
+  if (item.sell_in < 0)
     if !(item.name != "Aged Brie")
       if (item.quality < 50)
         item.quality += 1
