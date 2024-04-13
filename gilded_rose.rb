@@ -11,7 +11,13 @@ class ItemUpdater
   end
 
   def self.updater_for(item)
-    klass = self
+    klass =
+      case item.name
+      when /^Aged/           ; AgedItemUpdater
+      when /^Backstage pass/ ; BackstagePassUpdater
+      when /^Sulfuras/       ; LegendaryItemUpdater
+      else                   ; NormalItemUpdater
+      end
     klass.new(item)
   end
 
@@ -69,6 +75,11 @@ class ItemUpdater
     item.quality = 50 if item.quality > 50 && !hand?
   end
 end
+
+class AgedItemUpdater < ItemUpdater ; end
+class BackstagePassUpdater < ItemUpdater ; end
+class LegendaryItemUpdater < ItemUpdater ; end
+class NormalItemUpdater < ItemUpdater ; end
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 
