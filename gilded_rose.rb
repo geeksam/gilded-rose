@@ -2,26 +2,27 @@ require_relative "lib"
 
 def update_quality(item)
   brie = item.name == "Aged Brie"
+  pass = item.name == "Backstage passes to a TAFKAL80ETC concert"
 
-  if (!brie && item.name != "Backstage passes to a TAFKAL80ETC concert") && (item.quality > 0) && (item.name != "Sulfuras, Hand of Ragnaros")
+  if (!brie && !pass) && (item.quality > 0) && (item.name != "Sulfuras, Hand of Ragnaros")
     item.quality -= 1
   end
-  if !(!brie && item.name != "Backstage passes to a TAFKAL80ETC concert") && (item.quality < 50)
+  if !(!brie && !pass) && (item.quality < 50)
     item.quality += 1
   end
-  if !(!brie && item.name != "Backstage passes to a TAFKAL80ETC concert") && (item.quality < 50) && (item.name == "Backstage passes to a TAFKAL80ETC concert") && (item.sell_in < 11) && (item.quality < 50)
+  if !(!brie && !pass) && (item.quality < 50) && (pass) && (item.sell_in < 11) && (item.quality < 50)
     item.quality += 1
   end
-  if !(!brie && item.name != "Backstage passes to a TAFKAL80ETC concert") && (item.quality < 50) && (item.name == "Backstage passes to a TAFKAL80ETC concert") && (item.sell_in < 6) && (item.quality < 50)
+  if !(!brie && !pass) && (item.quality < 50) && (pass) && (item.sell_in < 6) && (item.quality < 50)
     item.quality += 1
   end
   if (item.name != "Sulfuras, Hand of Ragnaros")
     item.sell_in -= 1
   end
-  if (item.sell_in < 0) && (!brie) && (item.name != "Backstage passes to a TAFKAL80ETC concert") && (item.quality > 0) && (item.name != "Sulfuras, Hand of Ragnaros")
+  if (item.sell_in < 0) && (!brie) && (!pass) && (item.quality > 0) && (item.name != "Sulfuras, Hand of Ragnaros")
     item.quality -= 1
   end
-  if (item.sell_in < 0) && (!brie) && !(item.name != "Backstage passes to a TAFKAL80ETC concert")
+  if (item.sell_in < 0) && (!brie) && !(!pass)
     item.quality = item.quality - item.quality
   end
   if (item.sell_in < 0) && !(!brie) && (item.quality < 50)
