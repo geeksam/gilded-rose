@@ -33,11 +33,6 @@ class ItemUpdater
     enforce_item_quality_constraints
   end
 
-  def brie? ; item.name == "Aged Brie"                                 ; end
-  def pass? ; item.name == "Backstage passes to a TAFKAL80ETC concert" ; end
-  def hand? ; item.name == "Sulfuras, Hand of Ragnaros"                ; end
-  def norm? ; !brie? && !pass? && !hand?                               ; end
-
   private
 
   def update_quality_before_tick
