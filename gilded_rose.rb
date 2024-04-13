@@ -23,19 +23,13 @@ def update_quality(item)
   end
 
   if norm
-    if item.sell_in < 0
-      item.quality -= 1
-    end
+    item.quality -= 1 if item.sell_in < 0
   end
   if pass
-    if item.sell_in < 0
-      item.quality = 0
-    end
+    item.quality = 0 if item.sell_in < 0
   end
   if brie
-    if item.sell_in < 0
-      item.quality += 1
-    end
+    item.quality += 1 if item.sell_in < 0
   end
 
   item.quality =  0 if item.quality < 0
