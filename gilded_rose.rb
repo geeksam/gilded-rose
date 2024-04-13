@@ -9,7 +9,10 @@ def update_quality(item)
   if norm
     item.quality -= 1
   end
-  if brie || pass
+  if brie
+    item.quality += 1
+  end
+  if pass
     item.quality += 1
   end
   if pass && item.sell_in < 11
