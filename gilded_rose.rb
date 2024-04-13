@@ -3,8 +3,9 @@ require_relative "lib"
 def update_quality(item)
   brie = item.name == "Aged Brie"
   pass = item.name == "Backstage passes to a TAFKAL80ETC concert"
+  hand = item.name == "Sulfuras, Hand of Ragnaros"
 
-  if (!brie && !pass) && (item.quality > 0) && (item.name != "Sulfuras, Hand of Ragnaros")
+  if (!brie && !pass) && (item.quality > 0) && (!hand)
     item.quality -= 1
   end
   if !(!brie && !pass) && (item.quality < 50)
@@ -16,10 +17,10 @@ def update_quality(item)
   if !(!brie && !pass) && (item.quality < 50) && (pass) && (item.sell_in < 6) && (item.quality < 50)
     item.quality += 1
   end
-  if (item.name != "Sulfuras, Hand of Ragnaros")
+  if (!hand)
     item.sell_in -= 1
   end
-  if (item.sell_in < 0) && (!brie) && (!pass) && (item.quality > 0) && (item.name != "Sulfuras, Hand of Ragnaros")
+  if (item.sell_in < 0) && (!brie) && (!pass) && (item.quality > 0) && (!hand)
     item.quality -= 1
   end
   if (item.sell_in < 0) && (!brie) && !(!pass)
