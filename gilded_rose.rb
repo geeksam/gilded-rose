@@ -20,13 +20,13 @@ def update_quality(item)
   if !hand
     item.sell_in -= 1
   end
-  if item.sell_in < 0 && !brie && !pass && !hand
+  if !brie && !pass && !hand && item.sell_in < 0
     item.quality -= 1
   end
-  if item.sell_in < 0 && !brie && pass
+  if !brie && pass && item.sell_in < 0
     item.quality = item.quality - item.quality
   end
-  if item.sell_in < 0 && brie
+  if brie && item.sell_in < 0
     item.quality += 1
   end
 
