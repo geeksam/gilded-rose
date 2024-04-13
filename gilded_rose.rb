@@ -76,10 +76,17 @@ class ItemUpdater
   end
 end
 
-class AgedItemUpdater < ItemUpdater ; end
-class BackstagePassUpdater < ItemUpdater ; end
-class LegendaryItemUpdater < ItemUpdater ; end
-class NormalItemUpdater < ItemUpdater ; end
+class AgedItemUpdater < ItemUpdater
+end
+
+class BackstagePassUpdater < ItemUpdater
+end
+
+class LegendaryItemUpdater < ItemUpdater
+end
+
+class NormalItemUpdater < ItemUpdater
+end
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 
