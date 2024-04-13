@@ -29,7 +29,7 @@ def update_quality(item)
   end
   if pass
     if item.sell_in < 0
-      item.quality = item.quality - item.quality
+      item.quality = 0
     end
   end
   if brie
