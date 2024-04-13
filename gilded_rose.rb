@@ -28,7 +28,7 @@ class ItemUpdater
     end
 
     if !hand
-      item.sell_in -= 1
+      tick
     end
 
     case
@@ -42,6 +42,12 @@ class ItemUpdater
 
     item.quality =  0 if item.quality < 0
     item.quality = 50 if item.quality > 50 && !hand
+  end
+
+  private
+
+  def tick # Time keeps on ticking...
+    item.sell_in -= 1
   end
 end
 
