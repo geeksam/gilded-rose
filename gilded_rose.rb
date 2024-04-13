@@ -6,9 +6,13 @@ end
 
 class ItemUpdater
   def self.call(item)
+    instance = updater_for(item)
+    instance.call
+  end
+
+  def self.updater_for(item)
     klass = self
-    updater = klass.new(item)
-    updater.call
+    klass.new(item)
   end
 
   attr_reader :item
