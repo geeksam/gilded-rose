@@ -58,7 +58,6 @@ class ItemUpdater
     when pass?
       item.quality = 0 if item.sell_in < 0
     end
-
   end
 
   def enforce_item_quality_constraints
