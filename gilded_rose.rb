@@ -15,6 +15,7 @@ class ItemUpdater
       case item.name
       when /^Aged/           ; AgedItemUpdater
       when /^Backstage pass/ ; BackstagePassUpdater
+      when /^Conjured/       ; ConjuredItemUpdater
       when /^Sulfuras/       ; LegendaryItemUpdater
       else                   ; NormalItemUpdater
       end
@@ -72,6 +73,16 @@ class BackstagePassUpdater < ItemUpdater
 
   def update_quality_after_tick
     item.quality = 0 if item.sell_in < 0
+  end
+end
+
+class ConjuredItemUpdater < ItemUpdater
+  def update_quality_before_tick
+    item.quality -= 2
+  end
+
+  def update_quality_after_tick
+    item.quality -= 2 if item.sell_in < 0
   end
 end
 
