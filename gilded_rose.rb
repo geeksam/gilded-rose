@@ -9,13 +9,13 @@ def update_quality(item)
   if norm
     item.quality -= 1
   end
-  if (brie || pass)
+  if brie || pass
     item.quality += 1
   end
-  if (pass) && item.sell_in < 11
+  if pass && item.sell_in < 11
     item.quality += 1
   end
-  if (pass) && item.sell_in < 6
+  if pass && item.sell_in < 6
     item.quality += 1
   end
   if !hand
