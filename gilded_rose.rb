@@ -17,15 +17,7 @@ class ItemUpdater
       tick
     end
 
-    case
-    when norm?
-      item.quality -= 1 if item.sell_in < 0
-    when brie?
-      item.quality += 1 if item.sell_in < 0
-    when pass?
-      item.quality = 0 if item.sell_in < 0
-    end
-
+    update_quality_after_tick
     enforce_item_quality_constraints
   end
 
@@ -51,6 +43,18 @@ class ItemUpdater
 
   def tick # Time keeps on ticking...
     item.sell_in -= 1
+  end
+
+  def update_quality_after_tick
+    case
+    when norm?
+      item.quality -= 1 if item.sell_in < 0
+    when brie?
+      item.quality += 1 if item.sell_in < 0
+    when pass?
+      item.quality = 0 if item.sell_in < 0
+    end
+
   end
 
   def enforce_item_quality_constraints
