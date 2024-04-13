@@ -6,13 +6,12 @@ def update_quality(item)
   hand = item.name == "Sulfuras, Hand of Ragnaros"
   norm = !brie && !pass && !hand
 
-  if norm
+  case
+  when norm
     item.quality -= 1
-  end
-  if brie
+  when brie
     item.quality += 1
-  end
-  if pass
+  when pass
     item.quality += 1
     item.quality += 1 if item.sell_in < 11
     item.quality += 1 if item.sell_in < 6
@@ -22,13 +21,12 @@ def update_quality(item)
     item.sell_in -= 1
   end
 
-  if norm
+  case
+  when norm
     item.quality -= 1 if item.sell_in < 0
-  end
-  if brie
+  when brie
     item.quality += 1 if item.sell_in < 0
-  end
-  if pass
+  when pass
     item.quality = 0 if item.sell_in < 0
   end
 
