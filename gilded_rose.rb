@@ -14,12 +14,8 @@ def update_quality(item)
   end
   if pass
     item.quality += 1
-    if item.sell_in < 11
-      item.quality += 1
-    end
-    if item.sell_in < 6
-      item.quality += 1
-    end
+    item.quality += 1 if item.sell_in < 11
+    item.quality += 1 if item.sell_in < 6
   end
 
   if !hand
