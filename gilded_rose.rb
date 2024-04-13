@@ -5,22 +5,22 @@ def update_quality(item)
   pass = item.name == "Backstage passes to a TAFKAL80ETC concert"
   hand = item.name == "Sulfuras, Hand of Ragnaros"
 
-  if (!brie && !pass) && (item.quality > 0) && (!hand)
+  if (!brie && !pass) && (!hand) && (item.quality > 0)
     item.quality -= 1
   end
   if !(!brie && !pass) && (item.quality < 50)
     item.quality += 1
   end
-  if !(!brie && !pass) && (item.quality < 50) && (pass) && (item.sell_in < 11) && (item.quality < 50)
+  if !(!brie && !pass) && (pass) && (item.sell_in < 11) && (item.quality < 50)
     item.quality += 1
   end
-  if !(!brie && !pass) && (item.quality < 50) && (pass) && (item.sell_in < 6) && (item.quality < 50)
+  if !(!brie && !pass) && (pass) && (item.sell_in < 6) && (item.quality < 50)
     item.quality += 1
   end
   if (!hand)
     item.sell_in -= 1
   end
-  if (item.sell_in < 0) && (!brie) && (!pass) && (item.quality > 0) && (!hand)
+  if (item.sell_in < 0) && (!brie) && (!pass) && (!hand) && (item.quality > 0)
     item.quality -= 1
   end
   if (item.sell_in < 0) && (!brie) && !(!pass)
