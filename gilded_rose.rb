@@ -1,37 +1,7 @@
 require_relative "lib"
 
 def update_quality(item)
-  brie = item.name == "Aged Brie"
-  pass = item.name == "Backstage passes to a TAFKAL80ETC concert"
-  hand = item.name == "Sulfuras, Hand of Ragnaros"
-  norm = !brie && !pass && !hand
-
-  case
-  when norm
-    item.quality -= 1
-  when brie
-    item.quality += 1
-  when pass
-    item.quality += 1
-    item.quality += 1 if item.sell_in < 11
-    item.quality += 1 if item.sell_in < 6
-  end
-
-  if !hand
-    item.sell_in -= 1
-  end
-
-  case
-  when norm
-    item.quality -= 1 if item.sell_in < 0
-  when brie
-    item.quality += 1 if item.sell_in < 0
-  when pass
-    item.quality = 0 if item.sell_in < 0
-  end
-
-  item.quality =  0 if item.quality < 0
-  item.quality = 50 if item.quality > 50 && !hand
+  ItemUpdater.new(item).call
 end
 
 class ItemUpdater
@@ -41,7 +11,37 @@ class ItemUpdater
   end
 
   def call
-    raise NotImplementedError # TODO
+    brie = item.name == "Aged Brie"
+    pass = item.name == "Backstage passes to a TAFKAL80ETC concert"
+    hand = item.name == "Sulfuras, Hand of Ragnaros"
+    norm = !brie && !pass && !hand
+
+    case
+    when norm
+      item.quality -= 1
+    when brie
+      item.quality += 1
+    when pass
+      item.quality += 1
+      item.quality += 1 if item.sell_in < 11
+      item.quality += 1 if item.sell_in < 6
+    end
+
+    if !hand
+      item.sell_in -= 1
+    end
+
+    case
+    when norm
+      item.quality -= 1 if item.sell_in < 0
+    when brie
+      item.quality += 1 if item.sell_in < 0
+    when pass
+      item.quality = 0 if item.sell_in < 0
+    end
+
+    item.quality =  0 if item.quality < 0
+    item.quality = 50 if item.quality > 50 && !hand
   end
 end
 
