@@ -50,14 +50,7 @@ class ItemUpdater
   end
 
   def update_quality_after_tick
-    case
-    when norm?
-      item.quality -= 1 if item.sell_in < 0
-    when brie?
-      item.quality += 1 if item.sell_in < 0
-    when pass?
-      item.quality = 0 if item.sell_in < 0
-    end
+    raise NotImplementedError, "Subclass must implement"
   end
 
   def enforce_item_quality_constraints
@@ -70,6 +63,17 @@ class AgedItemUpdater < ItemUpdater
   def update_quality_before_tick
     item.quality += 1
   end
+
+  def update_quality_after_tick
+    case
+    when norm?
+      item.quality -= 1 if item.sell_in < 0
+    when brie?
+      item.quality += 1 if item.sell_in < 0
+    when pass?
+      item.quality = 0 if item.sell_in < 0
+    end
+  end
 end
 
 class BackstagePassUpdater < ItemUpdater
@@ -78,17 +82,50 @@ class BackstagePassUpdater < ItemUpdater
     item.quality += 1 if item.sell_in < 11
     item.quality += 1 if item.sell_in < 6
   end
+
+  def update_quality_after_tick
+    case
+    when norm?
+      item.quality -= 1 if item.sell_in < 0
+    when brie?
+      item.quality += 1 if item.sell_in < 0
+    when pass?
+      item.quality = 0 if item.sell_in < 0
+    end
+  end
 end
 
 class LegendaryItemUpdater < ItemUpdater
   def update_quality_before_tick
     # this space intentionally left blank
   end
+
+  def update_quality_after_tick
+    case
+    when norm?
+      item.quality -= 1 if item.sell_in < 0
+    when brie?
+      item.quality += 1 if item.sell_in < 0
+    when pass?
+      item.quality = 0 if item.sell_in < 0
+    end
+  end
 end
 
 class NormalItemUpdater < ItemUpdater
   def update_quality_before_tick
     item.quality -= 1
+  end
+
+  def update_quality_after_tick
+    case
+    when norm?
+      item.quality -= 1 if item.sell_in < 0
+    when brie?
+      item.quality += 1 if item.sell_in < 0
+    when pass?
+      item.quality = 0 if item.sell_in < 0
+    end
   end
 end
 
