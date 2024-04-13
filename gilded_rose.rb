@@ -7,7 +7,8 @@ def update_quality(item)
         item.quality -= 1
       end
     end
-  else
+  end
+  if !(item.name != 'Aged Brie' && item.name != 'Backstage passes to a TAFKAL80ETC concert')
     if (item.quality < 50)
       item.quality += 1
       if (item.name == 'Backstage passes to a TAFKAL80ETC concert')
@@ -35,10 +36,12 @@ def update_quality(item)
             item.quality -= 1
           end
         end
-      else
+      end
+      if !(item.name != 'Backstage passes to a TAFKAL80ETC concert')
         item.quality = item.quality - item.quality
       end
-    else
+    end
+    if !(item.name != "Aged Brie")
       if (item.quality < 50)
         item.quality += 1
       end
