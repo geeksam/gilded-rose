@@ -8,13 +8,13 @@ def update_quality(item)
   if (!brie && !pass) && (!hand) && (item.quality > 0)
     item.quality -= 1
   end
-  if !(!brie && !pass) && (item.quality < 50)
+  if (brie || pass) && (item.quality < 50)
     item.quality += 1
   end
-  if !(!brie && !pass) && (pass) && (item.sell_in < 11) && (item.quality < 50)
+  if (brie || pass) && (pass) && (item.sell_in < 11) && (item.quality < 50)
     item.quality += 1
   end
-  if !(!brie && !pass) && (pass) && (item.sell_in < 6) && (item.quality < 50)
+  if (brie || pass) && (pass) && (item.sell_in < 6) && (item.quality < 50)
     item.quality += 1
   end
   if (!hand)
@@ -23,10 +23,10 @@ def update_quality(item)
   if (item.sell_in < 0) && (!brie) && (!pass) && (!hand) && (item.quality > 0)
     item.quality -= 1
   end
-  if (item.sell_in < 0) && (!brie) && !(!pass)
+  if (item.sell_in < 0) && (!brie) && (pass)
     item.quality = item.quality - item.quality
   end
-  if (item.sell_in < 0) && !(!brie) && (item.quality < 50)
+  if (item.sell_in < 0) && (brie) && (item.quality < 50)
     item.quality += 1
   end
 end
