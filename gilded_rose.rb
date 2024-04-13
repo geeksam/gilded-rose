@@ -11,16 +11,7 @@ class ItemUpdater
   end
 
   def call
-    case
-    when norm?
-      item.quality -= 1
-    when brie?
-      item.quality += 1
-    when pass?
-      item.quality += 1
-      item.quality += 1 if item.sell_in < 11
-      item.quality += 1 if item.sell_in < 6
-    end
+    update_quality_before_tick
 
     if !hand?
       tick
@@ -44,6 +35,19 @@ class ItemUpdater
   def norm? ; !brie? && !pass? && !hand?                               ; end
 
   private
+
+  def update_quality_before_tick
+    case
+    when norm?
+      item.quality -= 1
+    when brie?
+      item.quality += 1
+    when pass?
+      item.quality += 1
+      item.quality += 1 if item.sell_in < 11
+      item.quality += 1 if item.sell_in < 6
+    end
+  end
 
   def tick # Time keeps on ticking...
     item.sell_in -= 1
