@@ -12,11 +12,7 @@ class ItemUpdater
 
   def call
     update_quality_before_tick
-
-    if !hand?
-      tick
-    end
-
+    tick
     update_quality_after_tick
     enforce_item_quality_constraints
   end
@@ -42,6 +38,7 @@ class ItemUpdater
   end
 
   def tick # Time keeps on ticking...
+    return if hand?
     item.sell_in -= 1
   end
 
