@@ -4,8 +4,9 @@ def update_quality(item)
   brie = item.name == "Aged Brie"
   pass = item.name == "Backstage passes to a TAFKAL80ETC concert"
   hand = item.name == "Sulfuras, Hand of Ragnaros"
+  norm = !brie && !pass && !hand
 
-  if !brie && !pass && !hand
+  if norm
     item.quality -= 1
   end
   if (brie || pass)
@@ -20,7 +21,7 @@ def update_quality(item)
   if !hand
     item.sell_in -= 1
   end
-  if !brie && !pass && !hand && item.sell_in < 0
+  if norm && item.sell_in < 0
     item.quality -= 1
   end
   if pass && item.sell_in < 0
