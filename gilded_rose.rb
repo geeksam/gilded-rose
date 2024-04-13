@@ -18,9 +18,11 @@ def update_quality(item)
   if pass && item.sell_in < 6
     item.quality += 1
   end
+
   if !hand
     item.sell_in -= 1
   end
+
   if norm && item.sell_in < 0
     item.quality -= 1
   end
