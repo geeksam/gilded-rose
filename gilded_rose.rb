@@ -11,38 +11,38 @@ class ItemUpdater
   end
 
   def call
-    brie = item.name == "Aged Brie"
-    pass = item.name == "Backstage passes to a TAFKAL80ETC concert"
-    hand = item.name == "Sulfuras, Hand of Ragnaros"
-    norm = !brie && !pass && !hand
-
     case
-    when norm
+    when norm?
       item.quality -= 1
-    when brie
+    when brie?
       item.quality += 1
-    when pass
+    when pass?
       item.quality += 1
       item.quality += 1 if item.sell_in < 11
       item.quality += 1 if item.sell_in < 6
     end
 
-    if !hand
+    if !hand?
       tick
     end
 
     case
-    when norm
+    when norm?
       item.quality -= 1 if item.sell_in < 0
-    when brie
+    when brie?
       item.quality += 1 if item.sell_in < 0
-    when pass
+    when pass?
       item.quality = 0 if item.sell_in < 0
     end
 
     item.quality =  0 if item.quality < 0
-    item.quality = 50 if item.quality > 50 && !hand
+    item.quality = 50 if item.quality > 50 && !hand?
   end
+
+  def brie? ; item.name == "Aged Brie"                                 ; end
+  def pass? ; item.name == "Backstage passes to a TAFKAL80ETC concert" ; end
+  def hand? ; item.name == "Sulfuras, Hand of Ragnaros"                ; end
+  def norm? ; !brie? && !pass? && !hand?                               ; end
 
   private
 
