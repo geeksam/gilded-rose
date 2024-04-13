@@ -1,10 +1,16 @@
 require_relative "lib"
 
 def update_quality(item)
-  ItemUpdater.new(item).call
+  ItemUpdater.call(item)
 end
 
 class ItemUpdater
+  def self.call(item)
+    klass = self
+    updater = klass.new(item)
+    updater.call
+  end
+
   attr_reader :item
   def initialize(item)
     @item = item
