@@ -82,11 +82,7 @@ class BackstagePassUpdater < ItemUpdater
 end
 
 class LegendaryItemUpdater < ItemUpdater
-  def update_quality_before_tick
-    # this space intentionally left blank
-  end
-
-  def update_quality_after_tick
+  def call
     # this space intentionally left blank
   end
 end
