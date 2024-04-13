@@ -34,6 +34,17 @@ def update_quality(item)
   item.quality = 50 if item.quality > 50 && !hand
 end
 
+class ItemUpdater
+  attr_reader :item
+  def initialize(item)
+    @item = item
+  end
+
+  def call
+    raise NotImplementedError # TODO
+  end
+end
+
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
 
 Item = Struct.new(:name, :sell_in, :quality)
