@@ -65,14 +65,7 @@ class AgedItemUpdater < ItemUpdater
   end
 
   def update_quality_after_tick
-    case
-    when norm?
-      item.quality -= 1 if item.sell_in < 0
-    when brie?
-      item.quality += 1 if item.sell_in < 0
-    when pass?
-      item.quality = 0 if item.sell_in < 0
-    end
+    item.quality += 1 if item.sell_in < 0
   end
 end
 
@@ -84,14 +77,7 @@ class BackstagePassUpdater < ItemUpdater
   end
 
   def update_quality_after_tick
-    case
-    when norm?
-      item.quality -= 1 if item.sell_in < 0
-    when brie?
-      item.quality += 1 if item.sell_in < 0
-    when pass?
-      item.quality = 0 if item.sell_in < 0
-    end
+    item.quality = 0 if item.sell_in < 0
   end
 end
 
@@ -101,14 +87,7 @@ class LegendaryItemUpdater < ItemUpdater
   end
 
   def update_quality_after_tick
-    case
-    when norm?
-      item.quality -= 1 if item.sell_in < 0
-    when brie?
-      item.quality += 1 if item.sell_in < 0
-    when pass?
-      item.quality = 0 if item.sell_in < 0
-    end
+    # this space intentionally left blank
   end
 end
 
@@ -118,14 +97,7 @@ class NormalItemUpdater < ItemUpdater
   end
 
   def update_quality_after_tick
-    case
-    when norm?
-      item.quality -= 1 if item.sell_in < 0
-    when brie?
-      item.quality += 1 if item.sell_in < 0
-    when pass?
-      item.quality = 0 if item.sell_in < 0
-    end
+    item.quality -= 1 if item.sell_in < 0
   end
 end
 
