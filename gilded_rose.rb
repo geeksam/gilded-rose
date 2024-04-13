@@ -41,16 +41,7 @@ class ItemUpdater
   private
 
   def update_quality_before_tick
-    case
-    when norm?
-      item.quality -= 1
-    when brie?
-      item.quality += 1
-    when pass?
-      item.quality += 1
-      item.quality += 1 if item.sell_in < 11
-      item.quality += 1 if item.sell_in < 6
-    end
+    raise NotImplementedError, "Subclass must implement"
   end
 
   def tick # Time keeps on ticking...
@@ -77,15 +68,63 @@ class ItemUpdater
 end
 
 class AgedItemUpdater < ItemUpdater
+  def update_quality_before_tick
+    case
+    when norm?
+      item.quality -= 1
+    when brie?
+      item.quality += 1
+    when pass?
+      item.quality += 1
+      item.quality += 1 if item.sell_in < 11
+      item.quality += 1 if item.sell_in < 6
+    end
+  end
 end
 
 class BackstagePassUpdater < ItemUpdater
+  def update_quality_before_tick
+    case
+    when norm?
+      item.quality -= 1
+    when brie?
+      item.quality += 1
+    when pass?
+      item.quality += 1
+      item.quality += 1 if item.sell_in < 11
+      item.quality += 1 if item.sell_in < 6
+    end
+  end
 end
 
 class LegendaryItemUpdater < ItemUpdater
+  def update_quality_before_tick
+    case
+    when norm?
+      item.quality -= 1
+    when brie?
+      item.quality += 1
+    when pass?
+      item.quality += 1
+      item.quality += 1 if item.sell_in < 11
+      item.quality += 1 if item.sell_in < 6
+    end
+  end
 end
 
 class NormalItemUpdater < ItemUpdater
+  def update_quality_before_tick
+    case
+    when norm?
+      item.quality -= 1
+    when brie?
+      item.quality += 1
+    when pass?
+      item.quality += 1
+      item.quality += 1 if item.sell_in < 11
+      item.quality += 1 if item.sell_in < 6
+    end
+  end
 end
 
 # DO NOT CHANGE THINGS BELOW -----------------------------------------
