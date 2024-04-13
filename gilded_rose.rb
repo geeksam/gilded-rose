@@ -45,7 +45,6 @@ class ItemUpdater
   end
 
   def tick # Time keeps on ticking...
-    return if hand?
     item.sell_in -= 1
   end
 
