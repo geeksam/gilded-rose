@@ -1,3 +1,4 @@
 spec/examples.txt
 lib/*
 vendor/*
+tmp
