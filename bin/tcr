@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'pathname'
 require_relative "cmd_utils"
 
 
@@ -72,7 +73,11 @@ def test(rspec_flags)
 end
 
 def commit
-  cmd = "git commit -am '[TCR] #{ARGV.first.strip}'"
+  path = Pathname.new(File.dirname(__FILE__)).join("../tmp/tcr_commit_message.txt").expand_path
+  File.open(path, "w") do |f|
+    f << "[TCR] " << ARGV.first.to_s.strip
+  end
+  cmd = "git commit -a -F #{path}"
   banner "COMMIT", cmd
   run_command cmd
 end
